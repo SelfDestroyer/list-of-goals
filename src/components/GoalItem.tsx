@@ -16,7 +16,7 @@ const GoalItem: FC<IGoalItem> = ({ goal, id, onRemoveGoal }): JSX.Element => {
 
   return (
     <View style={styles.goalItemMainContainer}>
-      <Pressable android_ripple={androidRippleConfig} style={onPressHandler} onPress={onRemoveGoal.bind(this, id}>
+      <Pressable android_ripple={androidRippleConfig} style={onPressHandler} onPress={onRemoveGoal.bind(this, id)}>
         <View style={styles.goalItemContainer}>
           <Text style={styles.goalItemText}>{goal}</Text>
         </View>

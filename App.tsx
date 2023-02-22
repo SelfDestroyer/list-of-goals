@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 
 import GoalItem from './src/components/GoalItem';
-
 import IGoal from './src/models/IGoal';
 import GoalInput from './src/components/GoalInput';
 
@@ -30,15 +29,16 @@ function App(): JSX.Element {
 
   const keyExtractor = (item: IGoal): string => item.id;
 
-  const renderEmpty = (): JSX.Element => <Text>List of goals....</Text>;
+  const renderEmpty = (): JSX.Element => <Text style={styles.emptyText}>List is empty...</Text>;
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <StatusBar />
+      <StatusBar backgroundColor={'#311b6b'} barStyle='light-content' />
       <View style={styles.appContainer}>
         <GoalInput onCreateGoal={createGoalHandler} modalIsVisible={modalIsVisible}
                    visibleModalHandler={visibleModalHandler} />
-        <Button title={'Add New Goal'} color={'#5e0acc'} onPress={visibleModalHandler} />
+        <Button title={'Add New Goal'} color={Platform.OS === 'android' ? '#5e0acc' : '#a971ff'}
+                onPress={visibleModalHandler} />
         <View style={styles.goalsContainer}>
           <FlatList data={goals} renderItem={renderItem} keyExtractor={keyExtractor} ListEmptyComponent={renderEmpty}
                     showsVerticalScrollIndicator={false} alwaysBounceVertical={false} />
@@ -51,6 +51,7 @@ function App(): JSX.Element {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    backgroundColor: '#311b6b',
   },
   appContainer: {
     flex: 1,
@@ -60,9 +61,15 @@ const styles = StyleSheet.create({
       },
     }),
     paddingHorizontal: 16,
+    flexDirection: 'column',
   },
   goalsContainer: {
-    flex: 4,
+    paddingTop: 10,
+  },
+  emptyText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 18,
   },
 });
 

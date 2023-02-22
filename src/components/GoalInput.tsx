@@ -2,8 +2,9 @@ import React, { FC, SetStateAction, useState } from 'react';
 import {
   Alert,
   Button,
+  Image,
   Modal,
-  NativeSyntheticEvent,
+  NativeSyntheticEvent, Platform,
   StyleSheet,
   TextInput,
   TextInputChangeEventData,
@@ -11,6 +12,7 @@ import {
 } from 'react-native';
 import _ from 'lodash';
 import IGoal from '../models/IGoal';
+import Logo from '../assets/images/goal.png';
 
 interface IGoalInput {
   readonly onCreateGoal: (callback: SetStateAction<IGoal[]>) => void;
@@ -41,13 +43,15 @@ const GoalInput: FC<IGoalInput> = ({ onCreateGoal, modalIsVisible, visibleModalH
     <View style={styles.mainContainer}>
       <Modal visible={modalIsVisible} animationType='slide'>
         <View style={styles.container}>
+          <Image source={Logo} style={styles.image} />
           <View style={styles.inputContainer}>
-            <TextInput style={styles.textInput} placeholder={'Your course goal!'} onChange={goalInputHandler}
+            <TextInput style={styles.textInput} placeholderTextColor={'#5e0acc'} placeholder={'Your course goal!'}
+                       onChange={goalInputHandler}
                        value={userGoal} />
           </View>
           <View style={styles.buttonGroup}>
-            <Button title={'Add Goal'} onPress={addGoalHandler} />
-            <Button title={'Cansel'} onPress={visibleModalHandler} />
+            <Button title={'Add Goal'} color={Platform.OS === "android" ? '#5e0acc' : '#a971ff'} onPress={addGoalHandler} />
+            <Button title={'Cansel'} color={'#f31282'} onPress={visibleModalHandler} />
           </View>
         </View>
       </Modal>
@@ -67,23 +71,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 10,
+    backgroundColor: '#311b6b',
   },
   inputContainer: {
     width: '100%',
   },
   textInput: {
     borderWidth: 1,
-    borderColor: '#cccccc',
+    borderColor: '#e4d0ff',
+    backgroundColor: '#e4d0ff',
     padding: 10,
     borderRadius: 8,
+    color: '#120438',
   },
   buttonGroup: {
     marginTop: 10,
-    width: 160,
+    width: 170,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    alignSelf: 'flex-end'
+  },
+  image: {
+    width: 100,
+    height: 100,
+    margin: 20,
+    alignSelf: 'center',
   },
 });
 
